@@ -12,7 +12,21 @@ namespace :codes do
     all_codes_found = AnalyzeCodes.load_found_codes(args.code_count_file)
     puts "Analyzing intersection"
     intersection = AnalyzeCodes.analyze_value_sets(value_sets, all_codes_found)
-    puts JSON.pretty_generate(intersection)
+    puts "Writing results to ./tmp"
+    out_dir = File.join(".", "tmp")
+    FileUtils.mkdir_p out_dir
+    File.open(File.join(out_dir, "result.json"), 'w') do |f|
+      f.write(JSON.pretty_generate(intersection))
+    end
+    arr = AnalyzeCodes.as_2d_array(intersection)
+    csv = CSV.generate(:force_quotes => false, :headers => :first_row) do |csv|
+      arr.each do |value|
+        csv << value
+      end
+    end
+    File.open(File.join(out_dir, "result.csv"), 'w') do |f|
+      f.write(csv)
+    end
   end
 end
 

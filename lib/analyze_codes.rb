@@ -13,7 +13,7 @@ module AnalyzeCodes
       intersection = {
         :totalCodes => value_set.concepts.length,
         :codesFound => 0,
-        :display_name => value_set.display_name,
+        :displayName => value_set.display_name,
         :version => value_set.version
       }
       value_set.concepts.each do |concept|
@@ -25,6 +25,13 @@ module AnalyzeCodes
       result[value_set.oid] = intersection
     end
     result
+  end
+  
+  def self.as_2d_array(result)
+    arr = [[:valueSet, :totalCodes, :codesFound, :percentFound, :displayName]]
+    arr.concat(result.collect do |key, value|
+      [key, value[arr[0][1]], value[arr[0][2]], value[arr[0][3]], value[arr[0][4]]]
+    end.to_a)
   end
   
   def self.load_value_sets(dir)
