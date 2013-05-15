@@ -3,7 +3,7 @@ module AnalyzeMeasures
   # Analyze measures for intersection with patient data by rolling up results for
   # value sets used by the measure
   # @param [HealthDataStandards::CQM::Measure[]] measures
-  # @param [{}] value_set_results as map of {:totalCodes => count, :codesFound => count}}
+  # @param [{}] value_set_results as map of {oid => {:totalCodes => count, :codesFound => count}}
   # @return [{}] map of {measureId => {:totalCodes => count, :codesFound => count}}
   def self.analyze_measures(measures, value_set_results)
     result = {}
@@ -12,6 +12,7 @@ module AnalyzeMeasures
         :totalCodes => 0,
         :codesFound => 0,
         :measureName => measure.name,
+        :type => measure.type,
         :nqfId => measure.nqf_id,
         :cmsId => measure['cms_id']
       }
@@ -57,7 +58,7 @@ module AnalyzeMeasures
   def self.extract_population_value_sets(population)
     value_sets = []
     AnalyzeMeasures.process_item!(population, value_sets)
-    value_sets
+    value_sets.uniq
   end
   
   def self.extract_code_counts!(intersection, value_sets, value_set_results)
@@ -79,7 +80,7 @@ module AnalyzeMeasures
   end
   
   def self.as_2d_array(result)
-    arr = [[:measureId, :measureName, :population, :nqfId, :cmsId, :totalCodes, :codesFound, :percentFound, :valueSetCount, :redundantValueSetCount]]
+    arr = [[:measureId, :measureName, :population, :nqfId, :cmsId, :type, :totalCodes, :codesFound, :percentFound, :valueSetCount, :redundantValueSetCount]]
     measure_summary_rows = result.collect do |measure_id, measure_result|
       [
         measure_id,
@@ -91,7 +92,8 @@ module AnalyzeMeasures
         measure_result[arr[0][6]],
         measure_result[arr[0][7]],
         measure_result[arr[0][8]],
-        measure_result[arr[0][9]]
+        measure_result[arr[0][9]],
+        measure_result[arr[0][10]]
       ]
     end.to_a
     arr.concat(measure_summary_rows)
@@ -104,11 +106,12 @@ module AnalyzeMeasures
               pop,
               measure_result[arr[0][3]],
               measure_result[arr[0][4]],
-              measure_result[pop][arr[0][5]],
+              measure_result[arr[0][5]],
               measure_result[pop][arr[0][6]],
               measure_result[pop][arr[0][7]],
               measure_result[pop][arr[0][8]],
-              measure_result[pop][arr[0][9]]
+              measure_result[pop][arr[0][9]],
+              measure_result[pop][arr[0][10]]
             ]
           )
         end

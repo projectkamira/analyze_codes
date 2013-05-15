@@ -12,7 +12,7 @@ Check out the code from GitHub, then:
 
 ## Usage
 
-    bundle exec rake codes:analyze['/path/to/value/set/dir','/path/to/output/of/extract_cda_codes']
+    bundle exec rake codes:analyze['/path/to/cypress/bundle','/path/to/output/of/extract_cda_codes']
 
 ## License
 

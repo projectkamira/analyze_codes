@@ -21,7 +21,7 @@ namespace :codes do
     all_codes_found = AnalyzeValueSets.load_found_codes(args.code_count_file)
     
     puts "Analyzing value set intersections"
-    value_set_intersection = AnalyzeValueSets.analyze_value_sets(value_sets, all_codes_found)
+    value_set_intersection = AnalyzeValueSets.analyze_value_sets(value_sets, all_codes_found, measures)
     puts "Analyzing measure intersections"
     measure_intersection = AnalyzeMeasures.analyze_measures(measures, value_set_intersection)
     
