@@ -15,12 +15,15 @@ module AnalyzeValueSets
         :version => value_set.version,
         :type => AnalyzeValueSets.type(value_set.oid, measures)
       }
+      all_code_sets = {}
       value_set.concepts.each do |concept|
+        all_code_sets[concept.code_system] = true
         if all_codes_found[concept.code_system] && all_codes_found[concept.code_system][concept.code]
           intersection[:codesFound]+=1
         end
       end
       intersection[:percentFound] = 100.0*intersection[:codesFound]/intersection[:totalCodes]
+      intersection[:codeSets] = all_code_sets.keys.map{|e| HealthDataStandards::Util::CodeSystemHelper.code_system_for(e)}.join(';')
       result[value_set.oid] = intersection
     end
     result
@@ -44,9 +47,9 @@ module AnalyzeValueSets
   end
   
   def self.as_2d_array(result)
-    arr = [[:valueSet, :totalCodes, :codesFound, :percentFound, :displayName, :type]]
+    arr = [[:valueSet, :totalCodes, :codesFound, :percentFound, :displayName, :type, :codeSets]]
     arr.concat(result.collect do |key, value|
-      [key, value[arr[0][1]], value[arr[0][2]], value[arr[0][3]], value[arr[0][4]], value[arr[0][5]]]
+      [key, value[arr[0][1]], value[arr[0][2]], value[arr[0][3]], value[arr[0][4]], value[arr[0][5]], value[arr[0][6]]]
     end.to_a)
   end
   

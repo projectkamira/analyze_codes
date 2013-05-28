@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{A library for analyzing value set and measure population coverage of the codes contained in a patient population.}
   gem.homepage      = ""
   
-  gem.add_dependency 'health-data-standards', '~>3.0.6'
+#  gem.add_dependency 'health-data-standards', '~>3.0.6'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

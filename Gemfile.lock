@@ -1,0 +1,86 @@
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 781ea7a287935d62f35ecab683b92540a4ea2b66
+  branch: develop
+  specs:
+    health-data-standards (3.1.1)
+      activesupport (~> 3.2.9)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.0)
+      mongoid (~> 3.1.0)
+      nokogiri (~> 1.5.5)
+      rest-client (~> 1.6.7)
+      rubyzip
+      uuid (~> 2.3.5)
+
+PATH
+  remote: .
+  specs:
+    analyze_codes (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (3.2.13)
+      activesupport (= 3.2.13)
+      builder (~> 3.0.0)
+    activesupport (3.2.13)
+      i18n (= 0.6.1)
+      multi_json (~> 1.0)
+    ansi (1.4.3)
+    builder (3.0.4)
+    coderay (1.0.9)
+    configatron (2.10.0)
+      yamler (>= 0.1.0)
+    cover_me (1.2.0)
+      configatron
+      hashie
+    erubis (2.7.0)
+    hashie (2.0.4)
+    i18n (0.6.1)
+    log4r (1.1.10)
+    macaddr (1.6.1)
+      systemu (~> 2.5.0)
+    memoist (0.9.0)
+    method_source (0.8.1)
+    mime-types (1.23)
+    minitest (4.7.4)
+    mongoid (3.1.4)
+      activemodel (~> 3.2)
+      moped (~> 1.4)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.22)
+    moped (1.5.0)
+    multi_json (1.7.3)
+    nokogiri (1.5.9)
+    origin (1.1.0)
+    pry (0.9.12.1)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    rake (10.0.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rubyzip (0.9.9)
+    slop (3.4.4)
+    systemu (2.5.2)
+    turn (0.9.6)
+      ansi
+    tzinfo (0.3.37)
+    uuid (2.3.7)
+      macaddr (~> 1.0)
+    yamler (0.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  analyze_codes!
+  cover_me
+  health-data-standards!
+  minitest
+  pry (~> 0.9.10)
+  rake
+  turn
